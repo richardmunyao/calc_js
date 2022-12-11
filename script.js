@@ -25,7 +25,7 @@ function divide(a, b) {
         return 0;
     }
     else if (b == 0) {
-        return "infinity";
+        return "To infinity and beyond...";
     }
     else {
         return a / b;
@@ -65,7 +65,7 @@ function operate(operator, a, b) {
 
 
 // adding our event listener for 'number' buttons:
-let numberBtns = document.querySelectorAll('.number')
+let numberBtns = document.querySelectorAll('.number');
 numberBtns.forEach(function (currentBtn) {
     currentBtn.addEventListener('click', numberBtnClicked)
 });
@@ -76,9 +76,9 @@ function numberBtnClicked(e) {
         document.getElementById("input").innerHTML += numSelected;
         numB = +(document.getElementById("input").innerHTML);
         secondNum = numB;
-        console.log(`Num B: ${numB}`);  
-        
+        console.log(`Num B: ${numB}`);          
     }
+    
     else if (operating && !screenCleared) {
         document.getElementById("input").innerHTML = "";
         document.getElementById("input").innerHTML += numSelected;
@@ -89,11 +89,21 @@ function numberBtnClicked(e) {
     }
 
     else {
+        if (!screenCleared) {
+            document.getElementById("input").innerHTML = "";
+            document.getElementById("input").innerHTML += numSelected;
+            numA = +(document.getElementById("input").innerHTML);
+            firstNum = numA;
+            screenCleared = true;
+
+        }
+        else {
         // document.getElementById("temp-input").innerHTML += numSelected;
         document.getElementById("input").innerHTML += numSelected;
         numA = +(document.getElementById("input").innerHTML);
         firstNum = numA;
         console.log(`Num A: ${numA}`);
+        }
     }
 
 }
