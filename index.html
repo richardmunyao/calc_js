@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple JS calculator</title>
+  <!-- Bootstrap -->
+  <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Richard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span
+        class="navbar-toggler-icon"></span> </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
+        
+      </ul>
+    </div>
+  </nav>
+  <header>
+    <div class="jumbotron jumbo_header">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="text-center">JAVASCRIPT CALCULATOR</h1>
+            <p class="text-center">Simple Input and Arithmetic using JavaScript.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section>
+    <div class="container  calc_container">
+      <div class="row">
+        <div class="col-xl-3">&nbsp;</div>
+        <div class="col-xl-6 d-flex calc_col">
+          <div id="calculator">
+            <div id="input-wrap">
+              <div id="op-selected"></div>
+              <div id="temp-input"></div>
+              <div id="input"></div>
+            </div>
+            <div id="button-wrap">
+              <button id="all-clear">AC</button>
+              <button id="clear">C</button>
+              <button id="sign">+/-</button>
+              <button id="divide" class="op divide">/</button>
+
+              <button class="number">7</button>
+              <button class="number">8</button>
+              <button class="number">9</button>
+              <button id="times" class="op times">*</button>
+
+              <button class="number">4</button>
+              <button class="number">5</button>
+              <button class="number">6</button>
+              <button id="minus" class="op minus">-</button>
+
+              <button class="number">1</button>
+              <button class="number">2</button>
+              <button class="number">3</button>
+              <button id="plus" class="op plus">+</button>
+
+              <button class="number num-0">0</button>
+              <button id="dot">.</button>
+              <button id="result">=</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3">&nbsp;</div>
+      </div>
+    </div>
+  </section>
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p>Copyright © MyWebsite. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- our script to run the calc -->
+  <script src="script.js"></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+</body>
+
+</html>
