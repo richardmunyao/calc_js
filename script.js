@@ -8,7 +8,6 @@ let screenCleared = false;
 function add(a, b) {
     console.log(`function add called with a: ${a} and b: ${b}`);
     ans = a + b;
-    console.log("Ans is:", ans);
     return ans;
 }
 
@@ -32,32 +31,38 @@ function divide(a, b) {
     }
 }
 
+// if answer is float, limit to 4dp and return
+function isFloat(x) {
+     if( !!(x % 1) ){
+        return parseFloat(x).toFixed(4);
+     }
+     else {return x}
+    }
+
 function operate(operator, a, b) {
     console.log(`OPERATE called with operator: ${operator}, a: ${a}, b: ${b}`);
     console.log(`typeof a: ${typeof (a)}, typeof b: ${typeof (b)}`);
     switch (operator) {
         case "plus":
-            console.log("doing plus things");
             ans = add(a, b);
-
-            return ans;
+            result = isFloat(ans)
+            return result;
 
 
         case "minus":
             ans = subtract(a, b);
-
-            return ans;
+            result = isFloat(ans)
+            return result;
 
         case "times":
             ans = multiply(a, b);
-
-            return ans;
+            result = isFloat(ans)
+            return result;
 
         case "divide":
             ans = divide(a, b);
-
-            return ans;
-
+            result = isFloat(ans)
+            return result;
         default:
             break;
     }
@@ -76,20 +81,20 @@ function numberBtnClicked(e) {
         document.getElementById("input").innerHTML += numSelected;
         numB = +(document.getElementById("input").innerHTML);
         secondNum = numB;
-        console.log(`Num B: ${numB}`);          
+        console.log(`Num B: ${numB}`);
     }
-    
+
     else if (operating && !screenCleared) {
         document.getElementById("input").innerHTML = "";
         document.getElementById("input").innerHTML += numSelected;
         numB = +(document.getElementById("input").innerHTML);
         secondNum = numB;
-        console.log(`Num B: ${numB}`);  
+        console.log(`Num B: ${numB}`);
         screenCleared = true;
     }
 
     else {
-        if (!screenCleared) {            
+        if (!screenCleared) {
             document.getElementById("input").innerHTML = "";
             document.getElementById("input").innerHTML += numSelected;
             numA = +(document.getElementById("input").innerHTML);
@@ -99,11 +104,11 @@ function numberBtnClicked(e) {
 
         }
         else {
-        // document.getElementById("temp-input").innerHTML += numSelected;
-        document.getElementById("input").innerHTML += numSelected;
-        numA = +(document.getElementById("input").innerHTML);
-        firstNum = numA;
-        console.log(`Num A: ${numA}`);
+            // document.getElementById("temp-input").innerHTML += numSelected;
+            document.getElementById("input").innerHTML += numSelected;
+            numA = +(document.getElementById("input").innerHTML);
+            firstNum = numA;
+            console.log(`Num A: ${numA}`);
         }
     }
 
@@ -117,11 +122,12 @@ operandBtns.forEach(function (currentBtn) {
 });
 
 function operandBtnClicked(e) {
-    console.log("screenCleared status is: ",screenCleared);
-    console.log("operating status is: ",operating);
-    if (operating){
+    console.log("screenCleared status is: ", screenCleared);
+    console.log("operating status is: ", operating);
+    document.getElementById("dot").disabled = false;
+    if (operating) {
         //do something
-        
+
         numB = +(document.getElementById("input").innerHTML);
         secondNum = numB;
         console.log(`Num B: ${numB}`);
@@ -129,11 +135,11 @@ function operandBtnClicked(e) {
         document.getElementById("input").innerHTML = computedResult;
         firstNum = computedResult;
     }
- 
+
     operating = true;
     let opSelected = e.target.id;
     console.log(`OP: ${opSelected}`);
-    operand = opSelected;    
+    operand = opSelected;
     screenCleared = false;
 }
 
@@ -146,6 +152,7 @@ function resultRequested() {
     console.log(`Computed result: ${computedResult}`);
     document.getElementById("input").innerHTML = "";
     document.getElementById("input").innerHTML = computedResult;
+    console.log("Done compute, screenCleared: ",screenCleared);
 
     // firstNum is now computed result
     firstNum = computedResult;
@@ -153,6 +160,7 @@ function resultRequested() {
     secondNum = null;
     operating = false;
     screenCleared = false;
+    // document.getElementById("dot").disabled = false;
 
 }
 
@@ -172,4 +180,19 @@ function clearBtnClicked(e) {
     secondNum = null;
     lastAns = null;
     operating = false;
+    document.getElementById("dot").disabled = false;
+    
+}
+
+//listen for dot (.) sign being clicked
+document.getElementById("dot").addEventListener("click", decimalPoint);
+function decimalPoint(e) {
+    //prevent entering decimal twice:
+    if (document.getElementById("input").innerHTML.includes('.')){        
+        document.getElementById("dot").disabled = true;
+    }
+    else{
+        document.getElementById("dot").disabled = false;           
+    }
+
 }
