@@ -89,11 +89,12 @@ function numberBtnClicked(e) {
     }
 
     else {
-        if (!screenCleared) {
+        if (!screenCleared) {            
             document.getElementById("input").innerHTML = "";
             document.getElementById("input").innerHTML += numSelected;
             numA = +(document.getElementById("input").innerHTML);
             firstNum = numA;
+            console.log(`Num A: ${numA}`);
             screenCleared = true;
 
         }
@@ -116,12 +117,23 @@ operandBtns.forEach(function (currentBtn) {
 });
 
 function operandBtnClicked(e) {
+    console.log("screenCleared status is: ",screenCleared);
+    console.log("operating status is: ",operating);
+    if (operating){
+        //do something
+        
+        numB = +(document.getElementById("input").innerHTML);
+        secondNum = numB;
+        console.log(`Num B: ${numB}`);
+        computedResult = operate(operand, firstNum, secondNum);
+        document.getElementById("input").innerHTML = computedResult;
+        firstNum = computedResult;
+    }
+ 
     operating = true;
     let opSelected = e.target.id;
     console.log(`OP: ${opSelected}`);
-    operand = opSelected;
-    //show the op:
-    document.getElementById("op-selected").innerHTML = e.target.innerHTML;
+    operand = opSelected;    
     screenCleared = false;
 }
 
