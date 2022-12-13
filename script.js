@@ -1,3 +1,4 @@
+//some useful vars
 let operand = null;
 let firstNum = null;
 let secondNum = null;
@@ -5,6 +6,36 @@ let lastAns = null;
 let operating = false;
 let screenCleared = false;
 
+//our 'clicked' listeners:
+//event listener for 'number' buttons:
+let numberBtns = document.querySelectorAll('.number');
+    numberBtns.forEach(function (currentBtn) {
+    currentBtn.addEventListener('click', inputEntered)
+});
+
+//event listener once an 'operand' is clicked:
+let operandBtns = document.querySelectorAll('.op')
+    operandBtns.forEach(function (currentBtn) {
+    currentBtn.addEventListener('click', operandEntered)
+});
+
+//event listener once an 'All Clear' is clicked:
+let clearBtns = document.querySelectorAll('.clear')
+    clearBtns.forEach(function (currentBtn) {
+    currentBtn.addEventListener('click', clearBtnClicked)
+});
+
+//listen for dot/decimal (.) sign being clicked
+document.getElementById("dot").addEventListener("click", decimalPoint);
+
+//listen for 'equal' sign being clicked
+document.getElementById("result").addEventListener("click", resultRequested);
+
+//our 'typed' listeners:
+//keyboard input:
+document.addEventListener('keydown', inputEntered);
+
+// our functions:
 function add(a, b) {
     console.log(`function add called with a: ${a} and b: ${b}`);
     ans = a + b;
@@ -73,12 +104,6 @@ function operate(operator, a, b) {
 }
 
 
-// adding our event listener for 'number' buttons:
-let numberBtns = document.querySelectorAll('.number');
-numberBtns.forEach(function (currentBtn) {
-    currentBtn.addEventListener('click', inputEntered)
-});
-
 function numberSelected(someDigit) {
     let numSelected = someDigit;
     console.log("Number selected: ", numSelected);
@@ -107,8 +132,7 @@ function numberSelected(someDigit) {
             console.log(`Num A: ${numA}`);
             screenCleared = true;
         }
-        else {
-            // document.getElementById("temp-input").innerHTML += numSelected;
+        else {            
             document.getElementById("input").innerHTML += numSelected;
             numA = +(document.getElementById("input").innerHTML);
             firstNum = numA;
@@ -119,19 +143,11 @@ function numberSelected(someDigit) {
 }
 
 
-// adding our event listener once an 'operand' is clicked:
-let operandBtns = document.querySelectorAll('.op')
-operandBtns.forEach(function (currentBtn) {
-    currentBtn.addEventListener('click', operandEntered)
-});
-
 function operandEntered(e) {
     console.log("screenCleared status is: ", screenCleared);
     console.log("operating status is: ", operating);
     document.getElementById("dot").disabled = false;
-    if (operating) {
-        //do something
-
+    if (operating) {        
         numB = +(document.getElementById("input").innerHTML);
         secondNum = numB;
         console.log(`Num B: ${numB}`);
@@ -151,31 +167,22 @@ function operandEntered(e) {
 }
 
 
-//listen for equal sign being clicked
-document.getElementById("result").addEventListener("click", resultRequested);
 function resultRequested() {
-
     computedResult = operate(operand, firstNum, secondNum);
     console.log(`Computed result: ${computedResult}`);
     document.getElementById("input").innerHTML = "";
     document.getElementById("input").innerHTML = computedResult;
     console.log("Done compute, screenCleared: ", screenCleared);
 
-    // firstNum is now computed result
+    // firstNum is now computed result. Reset vars concerned
     firstNum = computedResult;
     operand = null;
     secondNum = null;
     operating = false;
-    screenCleared = false;
-    // document.getElementById("dot").disabled = false;
-
+    screenCleared = false;  
 }
 
-// adding our event listener once an 'All Clear' is clicked:
-let clearBtns = document.querySelectorAll('.clear')
-clearBtns.forEach(function (currentBtn) {
-    currentBtn.addEventListener('click', clearBtnClicked)
-});
+
 
 function clearBtnClicked(e) {
     //reset everything to initial state:
@@ -188,11 +195,9 @@ function clearBtnClicked(e) {
     lastAns = null;
     operating = false;
     document.getElementById("dot").disabled = false;
-
 }
 
-//listen for dot (.) sign being clicked
-document.getElementById("dot").addEventListener("click", decimalPoint);
+
 function decimalPoint(e) {
     //prevent entering decimal twice:
     if (document.getElementById("input").innerHTML.includes('.')) {
@@ -201,11 +206,8 @@ function decimalPoint(e) {
     else {
         document.getElementById("dot").disabled = false;
     }
-
 }
 
-//keyboard input:
-document.addEventListener('keydown', inputEntered);
 
 function inputEntered(e) {
     // console.log("Key pressed: ", e);
@@ -214,15 +216,14 @@ function inputEntered(e) {
     }
 
     else if (e.type == 'keydown') {
-        //no operators for now
+            //could be a numpad or digit
         if ((e.code).startsWith("Digit") || (e.code).startsWith("Numpad")) {
 
-            //special case for operators
+            //special cases for operators and enter key
             let operators = ['+', '-', '/', '*']
             if (operators.includes(e.key)) { operandEntered(e) }
             else if (e.key == "Enter") { resultRequested() }
             else { numberSelected(e.key) }
-
         }
         
     }
